@@ -1,3 +1,14 @@
+.clientPhone {
+    background-image: url("ipad.png");
+    background-repeat: no-repeat;
+    height: 900px;
+    width: 606px;
+    margin: 0 auto 30px;
+    position: relative;
+    display: inline-block;
+    margin-left: 50px;
+}
+
 .phone {
     background-image: url("iphone.png");
     background-repeat: no-repeat;
@@ -9,11 +20,20 @@
 }
 
 /*Mobile iframe CSS*/
-iframe {
+.phoneWrapper {
     height: 592px;
     width: 332px;
     position: absolute;
     top: 99px;
     border: 0;
     left: 79px;
+}
+/*Mobile iframe CSS*/
+.clientPhoneWrapper {
+    height: 723px;
+    width: 544px;
+    position: absolute;
+    top: 89px;
+    border: 0;
+    left: 31px;
 }
