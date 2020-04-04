@@ -1,0 +1,19 @@
+.phone {
+    background-image: url("iphone.png");
+    background-repeat: no-repeat;
+    height: 800px;
+    width: 500px;
+    margin: 0 auto 30px;
+    position: relative;
+    display: inline-block;
+}
+
+/*Mobile iframe CSS*/
+iframe {
+    height: 592px;
+    width: 332px;
+    position: absolute;
+    top: 99px;
+    border: 0;
+    left: 79px;
+}

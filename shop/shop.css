@@ -1,0 +1,10 @@
+.big-text {
+    font-size: 30px;
+}
+.info-label {
+    height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
