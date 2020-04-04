@@ -37,3 +37,12 @@
     border: 0;
     left: 31px;
 }
+.description{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    bottom: -50px;
+    font-size: 30px;
+}
