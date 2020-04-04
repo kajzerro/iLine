@@ -81,6 +81,7 @@
                 url: "http://hosting2033046.online.pro/api/shops.php" ,
                 type: 'GET',
                 success: function (resp) {
+                    console.log(resp);
                     returnedData = JSON.parse(resp);
 
                     returnedData.forEach(render);
@@ -110,9 +111,10 @@
         var contentString = '<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">'+value.name+'</h1>'+
+                '<h1 id="firstHeading" class="firstHeading"><img src="http://hosting2033046.online.pro/api/'+ value.logoUrl + '" height="42"></h1>'+
+                        '<h2> '+value.name+'</h2>' +
                 '<div id="bodyContent" style="color:green">'+
-                '<p>' + value.shopSize + '/' + value.amountOfPeople + ' w kolejce: '+ numberOfPeopleInTheLine + '</p>'+
+                '<h4>' +  value.amountOfPeople  + '/' + value.shopSize + ' w kolejce: '+ numberOfPeopleInTheLine + '</h4>'+
                 '</div>'+
                 '</div>';
 
@@ -120,13 +122,14 @@
             numberOfPeopleInTheLine = amount - shopSize;
             peopleInside = shopSize;
             contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">'+value.name+'</h1>'+
-            '<div id="bodyContent" style="color:red">'+
-            '<p>' + value.shopSize + '/' + peopleInside + ' w kolejce: '+ numberOfPeopleInTheLine + '</p>'+
-            '</div>'+
-            '</div>';
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h1 id="firstHeading" class="firstHeading"><img src="http://hosting2033046.online.pro/api/'+ value.logoUrl + '" height="42"></h1>'+
+                    '<h2> '+value.name+'</h2>' +
+                    '<div id="bodyContent" style="color:red">'+
+                    '<h4>' +  peopleInside  + '/' + value.shopSize + ' w kolejce: '+ numberOfPeopleInTheLine + '</h4>'+
+                    '</div>'+
+                    '</div>';
 
         }
 
