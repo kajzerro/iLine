@@ -51,29 +51,44 @@
             }
         });
 
-        var contentString = '<div id="content">'+
-                '<div id="siteNotice">'+
-                '</div>'+
-                '<h1 id="firstHeading" class="firstHeading"><img src="biedronka1.png" height="30" /></h1>'+
-                '<div id="bodyContent">'+
-                '<p>84/84 w kolejce: 15</p>'+
-                '</div>'+
-                '</div>';
+//        var contentString = '<div id="content">'+
+//                '<div id="siteNotice">'+
+//                '</div>'+
+//                '<h1 id="firstHeading" class="firstHeading"><img src="biedronka1.png" height="30" /></h1>'+
+//                '<div id="bodyContent">'+
+//                '<p>84/84 w kolejce: 15</p>'+
+//                '</div>'+
+//                '</div>';
+//
+//
+//
+//        var infowindow = new google.maps.InfoWindow({
+//            content: contentString
+//        });
+//
+//
+//        // The marker, positioned at Uluru
+//        var marker = new google.maps.Marker({position: uluru, map: map, draggable: true,
+//            animation: google.maps.Animation.DROP, title: "B", label: {text: 'BIEDRONKA\n 45/60'}});
+//        marker.setVisible(false);
+//        infowindow.open(map, marker);
+//        marker.addListener('click', toggleBounce);
+//        marker.setMap(map);
 
+        window.setInterval(function(){
+            $.ajax({
+                url: "http://hosting2033046.online.pro/api/shops.php" ,
+                type: 'GET',
+                success: function (resp) {
+                    returnedData = JSON.parse(resp);
 
-
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
-
-
-        // The marker, positioned at Uluru
-        var marker = new google.maps.Marker({position: uluru, map: map, draggable: true,
-            animation: google.maps.Animation.DROP, title: "B", label: {text: 'BIEDRONKA\n 45/60'}});
-        marker.setVisible(false);
-        infowindow.open(map, marker);
-        marker.addListener('click', toggleBounce);
-        marker.setMap(map);
+                    returnedData.forEach(render);
+                },
+                error: function(e){
+                    alert('Error: '+e);
+                }
+            });
+        }, 3000);
 
     }
     function toggleBounce() {
@@ -85,12 +100,12 @@
     }
 
 
-
     function render(value, index, array) {
 
         var shopSize = Number(value.shopSize);
         var amount = Number(value.amountOfPeople);
         var numberOfPeopleInTheLine = 0;
+        var peopleInside = 0;
         var contentString = '<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
@@ -102,14 +117,16 @@
 
         if(amount > shopSize) {
             numberOfPeopleInTheLine = amount - shopSize;
+            peopleInside = shopSize;
             contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">'+value.name+'</h1>'+
             '<div id="bodyContent" style="color:red">'+
-            '<p>' + value.shopSize + '/' + value.amountOfPeople + ' w kolejce: '+ numberOfPeopleInTheLine + '</p>'+
+            '<p>' + value.shopSize + '/' + peopleInside + ' w kolejce: '+ numberOfPeopleInTheLine + '</p>'+
             '</div>'+
             '</div>';
+
         }
 
 
