@@ -88,7 +88,7 @@
                     alert('Error: '+e);
                 }
             });
-        }, 3000);
+        }, 1000);
 
     }
     function toggleBounce() {
@@ -131,7 +131,8 @@
 
 
         var infowindow = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
+            disableAutoPan : true
         });
 
         var position = { lat: parseFloat(value.lat), lng: parseFloat(value.lng) };
