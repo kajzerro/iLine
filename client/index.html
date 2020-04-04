@@ -31,11 +31,26 @@
     // Initialize and add the map
     function initMap() {
         // The location of Uluru
-        var uluru = {lat: -25.344, lng: 131.036};
+        var uluru = {lat: 50.0628876, lng: 19.9434594};
         // The map, centered at Uluru
-        var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 4, center: uluru});
+        map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 16, center: uluru});
 
+
+
+        var returnedData;
+        $.ajax({
+            url: "http://hosting2033046.online.pro/api/shops.php" ,
+            type: 'GET',
+            success: function (resp) {
+                returnedData = JSON.parse(resp);
+
+                returnedData.forEach(render);
+            },
+            error: function(e){
+                alert('Error: '+e);
+            }
+        });
 
         var contentString = '<div id="content">'+
                 '<div id="siteNotice">'+
@@ -71,6 +86,49 @@
     }
 
 
+
+    function render(value, index, array) {
+
+        var shopSize = Number(value.shopSize);
+        var amount = Number(value.amountOfPeople);
+        var numberOfPeopleInTheLine = 0;
+        var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">'+value.name+'</h1>'+
+                '<div id="bodyContent" style="color:green">'+
+                '<p>' + value.shopSize + '/' + value.amountOfPeople + ' w kolejce: '+ numberOfPeopleInTheLine + '</p>'+
+                '</div>'+
+                '</div>';
+
+        if(amount > shopSize) {
+            numberOfPeopleInTheLine = amount - shopSize;
+            contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+value.name+'</h1>'+
+            '<div id="bodyContent" style="color:red">'+
+            '<p>' + value.shopSize + '/' + value.amountOfPeople + ' w kolejce: '+ numberOfPeopleInTheLine + '</p>'+
+            '</div>'+
+            '</div>';
+        }
+
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        var position = { lat: parseFloat(value.lat), lng: parseFloat(value.lng) };
+console.log(position);
+        var marker = new google.maps.Marker({position: position, map: map, draggable: true,
+            animation: google.maps.Animation.DROP, title: "B", label: {text: 'BIEDRONKA\n 45/60'}});
+        marker.setVisible(false);
+        infowindow.open(map, marker);
+        marker.addListener('click', toggleBounce);
+        marker.setMap(map);
+
+    }
+
 </script>
 <!--Load the API from the specified URL
 * The async attribute allows the browser to render the page while the API loads
@@ -78,7 +136,7 @@
 * The callback parameter executes the initMap() function
 -->
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=<API_KEY>&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYiXXM2szXd1WR1mU-ADeLt7pB_O3Grno&callback=initMap">
 </script>
 </body>
 </html>
