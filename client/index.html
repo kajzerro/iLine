@@ -27,6 +27,7 @@
 <!--The div element for the map -->
 <div id="map"></div>
 <script>
+    var REFRESH_INTERVAL = 1000;
     // Initialize and add the map
     function initMap() {
         // The location of Uluru
@@ -88,7 +89,7 @@
                     alert('Error: '+e);
                 }
             });
-        }, 1000);
+        }, REFRESH_INTERVAL);
 
     }
     function toggleBounce() {
@@ -143,7 +144,7 @@ console.log(position);
         infowindow.open(map, marker);
         marker.addListener('click', toggleBounce);
         marker.setMap(map);
-
+        setTimeout(function(){ marker.setMap(null); }, 2 * REFRESH_INTERVAL);
     }
 
 </script>
